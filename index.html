@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MR HIDDEN VIRTUAL PC</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#101827;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#080e19;
+ padding:18px;
+ display:flex;
+ justify-content:space-between;
+}
+main{text-align:center;padding:50px 15px}
+h1{color:#36e6a0}
+.desktop{
+ background:linear-gradient(135deg,#142b46,#07111e);
+ border:1px solid #36e6a0;
+ border-radius:15px;
+ padding:35px 15px;
+ max-width:750px;
+ margin:25px auto;
+}
+button{
+ background:#19bd80;
+ border:0;
+ padding:14px 25px;
+ border-radius:8px;
+ font-weight:bold;
+ cursor:pointer;
+}
+#status{color:#ffc857;margin:20px}
+input{
+ width:90%;
+ max-width:450px;
+ padding:13px;
+ border-radius:7px;
+ margin:10px;
+}
+</style>
+</head>
+<body>
+<header>
+<strong>MR HIDDEN VIRTUAL PC</strong>
+<span>● ONLINE</span>
+</header>
+<main>
+<h1>VIRTUAL COMPUTER</h1>
+<p>Your Linux Desktop Anywhere</p>
+<div class="desktop">
+<h2>Ubuntu Virtual Desktop</h2>
+<p>Linux • XFCE • Terminal • File Manager</p>
+<p id="status">Waiting for server connection...</p>
+<input id="server" placeholder="Enter your Desktop server URL">
+<br>
+<button onclick="connectPC()">CONNECT TO PC</button>
+</div>
+<p>Powered by MR HIDDEN</p>
+</main>
+<script>
+function connectPC(){
+ let url=document.getElementById('server').value.trim();
+ if(!url.startsWith('https://')){
+  document.getElementById('status').innerText=
+  'Please enter a valid HTTPS server URL';
+  return;
+ }
+ window.location.href=url;
+}
+</script>
+</body>
+</html>
