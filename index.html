@@ -2,78 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MR HIDDEN VIRTUAL PC</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#101827;
- color:white;
- font-family:Arial,sans-serif;
-}
-header{
- background:#080e19;
- padding:18px;
- display:flex;
- justify-content:space-between;
-}
-main{text-align:center;padding:50px 15px}
-h1{color:#36e6a0}
+body{margin:0;background:#101b2b;color:white;font-family:Arial}
 .desktop{
- background:linear-gradient(135deg,#142b46,#07111e);
- border:1px solid #36e6a0;
- border-radius:15px;
- padding:35px 15px;
- max-width:750px;
- margin:25px auto;
-}
-button{
- background:#19bd80;
- border:0;
- padding:14px 25px;
- border-radius:8px;
- font-weight:bold;
- cursor:pointer;
-}
-#status{color:#ffc857;margin:20px}
-input{
- width:90%;
- max-width:450px;
- padding:13px;
- border-radius:7px;
- margin:10px;
-}
+height:100vh;min-height:500px;
+background:linear-gradient(135deg,#102c49,#10152c,#174b51);
+position:relative;overflow:hidden}
+.top{
+height:35px;background:#10151de8;
+display:flex;justify-content:space-between;
+align-items:center;padding:0 14px;font-size:13px}
+.icons{padding:20px;display:grid;grid-template-columns:repeat(2,85px);gap:20px}
+.app{
+width:80px;text-align:center;padding:10px 3px;
+border:1px solid transparent;border-radius:8px;
+cursor:pointer;font-size:12px}
+.app:active{background:#ffffff33}
+.app span{display:block;font-size:32px;margin-bottom:8px}
+.taskbar{
+position:absolute;bottom:0;width:100%;height:55px;
+background:#111b2deF;display:flex;
+align-items:center;justify-content:center;gap:15px}
+.taskbar button,.window button{
+border:0;border-radius:7px;padding:10px;
+background:#263c53;color:white;cursor:pointer}
+#startMenu{
+display:none;position:absolute;bottom:65px;left:10px;
+background:#18283d;border:1px solid #54708a;
+border-radius:12px;padding:18px;width:220px}
+#startMenu button{display:block;width:100%;margin:8px 0}
+.window{
+display:none;position:absolute;top:15%;left:5%;
+width:90%;max-width:500px;min-height:200px;
+background:#182436;border:1px solid #65c6b5;
+border-radius:10px;overflow:hidden;
+box-shadow:0 10px 40px #0009}
+.whead{background:#263c53;padding:12px;
+display:flex;justify-content:space-between}
+.content{padding:16px;line-height:1.7}
+#terminal{background:#050a0d;color:#5af5a1;
+font-family:monospace;min-height:130px}
+input{background:#101820;color:white;border:1px solid #567;padding:10px;width:100%}
 </style>
 </head>
 <body>
-<header>
-<strong>MR HIDDEN VIRTUAL PC</strong>
-<span>● ONLINE</span>
-</header>
-<main>
-<h1>VIRTUAL COMPUTER</h1>
-<p>Your Linux Desktop Anywhere</p>
 <div class="desktop">
-<h2>Ubuntu Virtual Desktop</h2>
-<p>Linux • XFCE • Terminal • File Manager</p>
-<p id="status">Waiting for server connection...</p>
-<input id="server" placeholder="Enter your Desktop server URL">
-<br>
-<button onclick="connectPC()">CONNECT TO PC</button>
+ <div class="top">
+  <b>MR HIDDEN PC</b>
+  <span id="clock">ONLINE</span>
+ </div>
+
+ <div class="icons">
+  <div class="app" onclick="openApp('computer')"><span>🖥️</span>My Computer</div>
+  <div class="app" onclick="openApp('files')"><span>📁</span>File Manager</div>
+  <div class="app" onclick="openApp('terminal')"><span>⌨️</span>Terminal</div>
+  <div class="app" onclick="openApp('browser')"><span>🌐</span>Browser</div>
+ </div>
+
+ <div id="computer" class="window">
+  <div class="whead">My Computer <button onclick="closeApp('computer')">✕</button></div>
+  <div class="content">
+   <h3>🖥️ Virtual Computer</h3>
+   <p>System: MR HIDDEN Virtual PC</p>
+   <p>Operating System: Cloud Linux (Not connected)</p>
+   <p>Status: Desktop interface running</p>
+  </div>
+ </div>
+
+ <div id="files" class="window">
+  <div class="whead">File Manager <button onclick="closeApp('files')">✕</button></div>
+  <div class="content">
+   📁 Home<br>📁 Documents<br>📁 Downloads<br>📁 Pictures
+   <p>Cloud storage will be connected later.</p>
+  </div>
+ </div>
+
+ <div id="terminal" class="window">
+  <div class="whead">Terminal <button onclick="closeApp('terminal')">✕</button></div>
+  <div class="content" id="terminal">
+   MR HIDDEN VIRTUAL PC<br>
+   Demo terminal — no real Linux connection.<br>
+   $ Welcome!
+  </div>
+ </div>
+
+ <div id="browser" class="window">
+  <div class="whead">Browser <button onclick="closeApp('browser')">✕</button></div>
+  <div class="content">
+   <p>🌐 Web Browser</p>
+   <input id="weburl" placeholder="https://example.com">
+   <br><br>
+   <button onclick="browse()">Open Website</button>
+  </div>
+ </div>
+
+ <div id="startMenu">
+  <h3>MR HIDDEN</h3>
+  <button onclick="openApp('computer')">🖥️ My Computer</button>
+  <button onclick="openApp('files')">📁 File Manager</button>
+  <button onclick="openApp('terminal')">⌨️ Terminal</button>
+  <button onclick="openApp('browser')">🌐 Browser</button>
+ </div>
+
+ <div class="taskbar">
+  <button onclick="toggleStart()">⊞ START</button>
+  <button onclick="openApp('files')">📁</button>
+  <button onclick="openApp('terminal')">⌨️</button>
+  <button onclick="fullscreen()">⛶</button>
+ </div>
 </div>
-<p>Powered by MR HIDDEN</p>
-</main>
+
 <script>
-function connectPC(){
- let url=document.getElementById('server').value.trim();
- if(!url.startsWith('https://')){
-  document.getElementById('status').innerText=
-  'Please enter a valid HTTPS server URL';
-  return;
- }
- window.location.href=url;
+function openApp(id){
+ document.getElementById(id).style.display='block';
+ document.getElementById('startMenu').style.display='none';
 }
+function closeApp(id){
+ document.getElementById(id).style.display='none';
+}
+function toggleStart(){
+ let m=document.getElementById('startMenu');
+ m.style.display=m.style.display==='block'?'none':'block';
+}
+function fullscreen(){
+ if(!document.fullscreenElement){
+  document.documentElement.requestFullscreen?.();
+ }else{
+  document.exitFullscreen?.();
+ }
+}
+function browse(){
+ let u=document.getElementById('weburl').value;
+ if(/^https?:\/\//i.test(u))window.open(u,'_blank');
+}
+function updateClock(){
+ document.getElementById('clock').textContent=
+ new Date().toLocaleString();
+}
+updateClock();
+setInterval(updateClock,1000);
 </script>
 </body>
 </html>
